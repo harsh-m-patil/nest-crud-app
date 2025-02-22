@@ -5,6 +5,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { join } from 'path';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -22,11 +23,15 @@ import { UsersModule } from './users/users.module';
         entities: [join(process.cwd(), 'dist/**/*.entity.js')],
         //NOTE: Do not user in prod use migrations instead
         synchronize: true,
+        // synchronize: false,
+        // migrationsRun: true
+
       }),
     }),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
